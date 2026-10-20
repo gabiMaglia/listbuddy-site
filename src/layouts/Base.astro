@@ -3,7 +3,7 @@ import "../styles/global.css";
 import { RELEASE } from "../release.mjs";
 
 interface Props { title?: string; description?: string }
-const { title, description = "Tu librería de rekordbox y la de Traktor en una sola vista. Marcás playlists y salen al USB como carpetas numeradas, en el orden en que las armaste." } = Astro.props;
+const { title, description = "Tu librería de Rekordbox y la de Traktor en una sola vista. Marcás playlists y salen al USB como carpetas numeradas, en el orden en que las armaste." } = Astro.props;
 const fullTitle = title ? `${title} · List Buddy` : "List Buddy · Todas tus playlists. Un solo lugar.";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const home = `${base}/`;
@@ -61,7 +61,7 @@ try {
           <a href="https://github.com/gabiMaglia/listbuddy">GitHub</a>
           <a href="https://ko-fi.com/gabrielmaglia">Ko‑fi</a>
         </nav>
-        <p class="tm">rekordbox: marca de AlphaTheta Corporation. Traktor, Native Instruments: marcas de Native Instruments GmbH. Sin afiliación.</p>
+        <p class="tm">Rekordbox: marca de AlphaTheta Corporation. Traktor, Native Instruments: marcas de Native Instruments GmbH. Sin afiliación.</p>
       </div>
     </footer>
   </body>

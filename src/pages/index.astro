@@ -8,7 +8,7 @@ const win = ASSETS.find((a) => a.file.endsWith("win64.zip"))!;
 const arm = ASSETS[0]!;
 
 const steps = [
-  { n: "01", t: "Exportar colección", d: "rekordbox: Archivo → Exportar colección en xml. Traktor: ruta a collection.nml. No hace falta cerrar el programa." },
+  { n: "01", t: "Exportar colección", d: "Rekordbox: Archivo → Exportar colección en xml. Traktor: ruta a collection.nml. No hace falta cerrar el programa." },
   { n: "02", t: "Seleccionar · previa", d: "Árbol de carpetas y playlists. Vista previa de la salida, reproducción, detección de enlaces rotos." },
   { n: "03", t: "Copiar", d: "Destino: USB, SD o disco. Carpetas numeradas, progreso, registro de copiadas y faltantes." },
 ];
@@ -16,14 +16,14 @@ const steps = [
 const modules = [
   { id: "LB-01 EXPORT", t: "Copia con prefijo numérico", d: "Bit a bit, sin re-encode. Nombre limpio de caracteres inválidos. Progreso y registro por lote. Verificación de integridad al final." },
   { id: "LB-02 PREVIEW", t: "Vista previa y reproducción", d: "Lo que va a salir, playlist por playlist, antes de copiar. Reproductor con forma de onda y búsqueda. 800 playlists sin trabar la interfaz." },
-  { id: "LB-03 RELOCATE", t: "Reparación de enlaces", d: "Archivos movidos de disco: búsqueda por nombre, propuesta de ruta nueva. rekordbox: las reparaciones se guardan aparte y se puede generar un XML importable. Traktor: escribe el NML con copia de seguridad previa." },
+  { id: "LB-03 RELOCATE", t: "Reparación de enlaces", d: "Archivos movidos de disco: búsqueda por nombre, propuesta de ruta nueva. Rekordbox: las reparaciones se guardan aparte y se puede generar un XML importable. Traktor: escribe el NML con copia de seguridad previa." },
   { id: "LB-04 INTEGRITY", t: "Integridad del software", d: "macOS: firmado con Developer ID y notarizado por Apple. Windows: sin firma, hash SHA‑256 publicado. Dependencias fijadas con hashes. Código fuente de cada versión junto a la descarga." },
   { id: "LB-05 PRIVACY", t: "Sin red", d: "No hay cuenta, servidor ni telemetría. La única conexión es el chequeo de versión nueva al iniciar, desactivable en Configuración → Privacidad." },
 ];
 
 const faq = [
-  { q: "¿Hay que cerrar rekordbox?", a: "No. Se lee el XML exportado. Para escribir el NML de Traktor (reparación de enlaces) sí conviene cerrarlo." },
-  { q: "¿Modifica la base de datos?", a: "Nunca abre ni escribe master.db. Las reparaciones de rekordbox van a un archivo propio; se puede generar un XML nuevo para importar." },
+  { q: "¿Hay que cerrar Rekordbox?", a: "No. Se lee el XML exportado. Para escribir el NML de Traktor (reparación de enlaces) sí conviene cerrarlo." },
+  { q: "¿Modifica la base de datos?", a: "Nunca abre ni escribe master.db. Las reparaciones de Rekordbox van a un archivo propio; se puede generar un XML nuevo para importar." },
   { q: "¿Convierte o normaliza el audio?", a: "No. Copia el archivo original byte a byte; solo cambia el nombre del archivo de destino." },
   { q: "¿Qué cambia en la 1.1?", a: "Listas propias y exportación cruzada, con licencia de pago. La 1.0 queda disponible bajo GPL‑3.0, sin soporte." },
 ];
@@ -34,10 +34,10 @@ const faq = [
       <div class="hero-t">
         <p class="eyebrow">LB-1.0 · Utilidad de exportación · macOS / Windows</p>
         <h1>Todas tus playlists.<br />Un solo lugar.</h1>
-        <p class="led">rekordbox · Traktor · USB</p>
-        <p class="lede">Tu librería de rekordbox y la de Traktor en una sola vista. Marcás playlists, escuchás, y salen al USB como carpetas numeradas, en el orden en que las armaste. No convierte, no toca la base de datos, no usa red.</p>
+        <p class="led">Rekordbox · Traktor · USB</p>
+        <p class="lede">Tu librería de Rekordbox y la de Traktor en una sola vista. Marcás playlists, escuchás, y salen al USB como carpetas numeradas, en el orden en que las armaste. No convierte, no toca la base de datos, no usa red.</p>
         <dl class="spec">
-          <dt>Entrada</dt><dd>rekordbox 6 / 7 · XML exportado — Traktor Pro 3 / 4 · collection.nml</dd>
+          <dt>Entrada</dt><dd>Rekordbox 6 / 7 · XML exportado — Traktor Pro 3 / 4 · collection.nml</dd>
           <dt>Salida</dt><dd>una carpeta por playlist · <b>001 - Artista - Título.ext</b> · copia bit a bit</dd>
           <dt>Audio</dt><dd>previa con forma de onda · mp3 aiff wav flac m4a</dd>
           <dt>Red</dt><dd>ninguna (aviso de versión opcional)</dd>
