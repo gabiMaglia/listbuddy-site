@@ -1,0 +1,11 @@
+---
+import Legal from "../../layouts/Legal.astro";
+import { getEntry, render } from "astro:content";
+
+const entry = await getEntry("legal", "disclaimer");
+if (!entry) throw new Error("Falta la copia legal: correr npm run sync-legal");
+const { Content } = await render(entry);
+---
+<Legal title="Términos y privacidad">
+  <Content />
+</Legal>

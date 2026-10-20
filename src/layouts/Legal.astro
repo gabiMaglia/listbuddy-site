@@ -1,0 +1,7 @@
+---
+import Base from "./Base.astro";
+interface Props { title: string }
+---
+<Base title={Astro.props.title}>
+  <div class="wrap"><article class="prose"><slot /></article></div>
+</Base>

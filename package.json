@@ -1,0 +1,28 @@
+{
+  "name": "listbuddy-site",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.22.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "sync-legal": "node scripts/sync-legal.mjs",
+    "check-links": "node scripts/check-links.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^7.4.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.11",
+    "@types/node": "^26.6.5",
+    "typescript": "^6.0.3"
+  },
+  "license": "MIT",
+  "private": true
+}

@@ -1,0 +1,23 @@
+---
+import fs from "node:fs";
+
+// Si existe public/img/<file> se usa la imagen real; si no, bloque gris accesible.
+// alt vacío a propósito: el figcaption ya describe la figura.
+interface Props { file: string; width: number; height: number; kind: string; desc: string; variant: "hero" | "ui" }
+const { file, width, height, kind, desc, variant } = Astro.props;
+const exists = fs.existsSync(new URL(`../../public/img/${file}`, import.meta.url));
+const src = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/img/${file}`;
+---
+<figure class={variant === "hero" ? "fig-hero" : "fig-ui"}>
+  {variant === "ui" ? (
+    <div class="frame">
+      {exists ? <img src={src} alt="" width={width} height={height} loading="lazy" decoding="async" /> : <div class="ph" aria-hidden="true"></div>}
+    </div>
+  ) : (
+    exists ? <img src={src} alt="" width={width} height={height} decoding="async" fetchpriority="high" /> : <div class="ph" aria-hidden="true"></div>
+  )}
+  <figcaption>
+    <span class="fig-k">{kind}</span>
+    <span class="fig-d">{desc}</span>
+  </figcaption>
+</figure>

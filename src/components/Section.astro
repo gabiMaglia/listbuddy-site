@@ -1,0 +1,14 @@
+---
+interface Props { id?: string; num: string; title: string; alt?: boolean; note?: string }
+const { id, num, title, alt = false, note } = Astro.props;
+---
+<section id={id} class:list={["pad", { alt }]}>
+  <div class="wrap g12">
+    <div class="side">
+      <span class="num">{num}</span>
+      <h2>{title}</h2>
+      {note && <p>{note}</p>}
+    </div>
+    <div class="cell-r"><slot /></div>
+  </div>
+</section>
