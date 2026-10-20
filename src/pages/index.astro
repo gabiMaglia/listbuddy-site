@@ -5,7 +5,6 @@ import Figure from "../components/Figure.astro";
 import { RELEASE, REPO, ASSETS, assetUrl } from "../release.mjs";
 
 const win = ASSETS.find((a) => a.file.endsWith("win64.zip"))!;
-const arm = ASSETS[0]!;
 
 const steps = [
   { n: "01", t: "Exportar colección", d: "Rekordbox: Archivo → Exportar colección en xml. Traktor: ruta a collection.nml. No hace falta cerrar el programa." },
@@ -14,18 +13,18 @@ const steps = [
 ];
 
 const modules = [
-  { id: "LB-01 EXPORT", t: "Copia con prefijo numérico", d: "Bit a bit, sin re-encode. Nombre limpio de caracteres inválidos. Progreso y registro por lote. Verificación de integridad al final." },
-  { id: "LB-02 PREVIEW", t: "Vista previa y reproducción", d: "Lo que va a salir, playlist por playlist, antes de copiar. Reproductor con forma de onda y búsqueda. 800 playlists sin trabar la interfaz." },
+  { id: "LB-01 EXPORT", t: "Copia con prefijo numérico", d: "Bit a bit, sin re-encode. Nombre limpio de caracteres inválidos. Progreso y registro por lote. Comprobación de tamaño al final." },
+  { id: "LB-02 PREVIEW", t: "Vista previa y reproducción", d: "Lo que va a salir, playlist por playlist, antes de copiar. Reproductor con forma de onda y búsqueda. La interfaz sigue respondiendo mientras carga la librería y revisa archivos." },
   { id: "LB-03 RELOCATE", t: "Reparación de enlaces", d: "Archivos movidos de disco: búsqueda por nombre, propuesta de ruta nueva. Rekordbox: las reparaciones se guardan aparte y se puede generar un XML importable. Traktor: escribe el NML con copia de seguridad previa." },
   { id: "LB-04 INTEGRITY", t: "Integridad del software", d: "macOS: firmado con Developer ID y notarizado por Apple. Windows: sin firma, hash SHA‑256 publicado. Dependencias fijadas con hashes. Código fuente de cada versión junto a la descarga." },
-  { id: "LB-05 PRIVACY", t: "Sin red", d: "No hay cuenta, servidor ni telemetría. La única conexión es el chequeo de versión nueva al iniciar, desactivable en Configuración → Privacidad." },
+  { id: "LB-05 PRIVACY", t: "Sin red", d: "No recolecta ni envía datos. La única conexión es el chequeo de versión nueva al iniciar (consulta GitHub), desactivable en Configuración → Privacidad." },
 ];
 
 const faq = [
   { q: "¿Hay que cerrar Rekordbox?", a: "No. Se lee el XML exportado. Para escribir el NML de Traktor (reparación de enlaces) sí conviene cerrarlo." },
   { q: "¿Modifica la base de datos?", a: "Nunca abre ni escribe master.db. Las reparaciones de Rekordbox van a un archivo propio; se puede generar un XML nuevo para importar." },
   { q: "¿Convierte o normaliza el audio?", a: "No. Copia el archivo original byte a byte; solo cambia el nombre del archivo de destino." },
-  { q: "¿Qué cambia en la 1.1?", a: "Listas propias y exportación cruzada, con licencia de pago. La 1.0 queda disponible bajo GPL‑3.0, sin soporte." },
+  { q: "¿Qué cambia en la 1.1?", a: "A partir de la 1.1 List Buddy se distribuye con licencia de pago. La 1.0 queda disponible bajo GPL‑3.0, sin garantía de actualizaciones." },
 ];
 ---
 <Base>
@@ -75,7 +74,7 @@ const faq = [
         <span class="t">03_Closing/</span><span></span><span>31 · 498 MB</span>
         <span></span><span>001 - Larry Heard - Missing You.mp3</span><span>15,3 MB</span>
         <span></span><span class="m">… 030 más</span><span></span>
-        <span class="ok">OK</span><span class="mt">131 copiadas · 0 faltantes · hashes verificados</span><span class="mt">2,2 GB</span>
+        <span class="ok">OK</span><span class="mt">131 copiadas · 0 faltantes · tamaños comprobados</span><span class="mt">2,2 GB</span>
       </div>
     </div>
   </Section>
@@ -95,14 +94,19 @@ const faq = [
   <Section id="descargas" num="05" title="Descargas" note={`Versión ${RELEASE} · 2026‑10. Cada archivo con su .sha256.`}>
     <div class="dls">
       {ASSETS.map((a) => (
-        <a class="dl" href={assetUrl(a.file)}>
-          <strong>{a.label}</strong>
-          <span class="go">{a.kind} ↓</span>
-          <span class="metas"><span class="meta">{a.file}</span><span class="meta">{a.size}</span><span class="meta">{a.req}</span></span>
-        </a>
+        <div class="dlrow">
+          <a class="dl" href={assetUrl(a.file)}>
+            <strong>{a.label}</strong>
+            <span class="go">{a.kind} ↓</span>
+            <span class="metas"><span class="meta">{a.file}</span><span class="meta">{a.size}</span><span class="meta">{a.req}</span></span>
+          </a>
+          <a class="sha" href={assetUrl(`${a.file}.sha256`)}>sha256 ↓</a>
+        </div>
       ))}
       <div class="dl-note">
-        <span>Verificación</span> · shasum -a 256 -c {arm.file}.sha256 → OK<br />
+        <span>Verificación</span> · con el archivo y su .sha256 en la misma carpeta:<br />
+        {ASSETS.map((a) => (<><code>shasum -a 256 -c {a.file}.sha256</code><br /></>))}
+        Cada uno debe decir «OK». En Windows: <code>Get-FileHash .\{win.file} -Algorithm SHA256</code> y comparar con el .sha256.<br />
         macOS: Developer ID + notarización Apple, abre con doble click. Windows: sin firma de código, SmartScreen puede avisar; comparar el hash.<br />
         <a href={`https://github.com/${REPO}/releases`}>Todas las versiones</a>
       </div>
