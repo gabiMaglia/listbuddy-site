@@ -8,15 +8,6 @@ const fullTitle = title ? `${title} · List Buddy` : "List Buddy · Todas tus pl
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const home = `${base}/`;
 
-// La hoja de Google Fonts bloquea el render (Lighthouse ~2 s). Se trae en build y se
-// inlinea (sin JS de cliente); las fuentes siguen viniendo de Google con display=swap.
-// Si el fetch falla, cae al <link> normal.
-const FONTS_URL = "https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400;62..125,500;62..125,700;62..125,900&family=IBM+Plex+Mono:wght@400;500&family=Silkscreen&display=swap";
-let fontsCss = "";
-try {
-  const res = await fetch(FONTS_URL, { headers: { "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36" } });
-  if (res.ok) fontsCss = await res.text();
-} catch {}
 ---
 <!doctype html>
 <html lang="es">
@@ -28,11 +19,6 @@ try {
     <meta name="theme-color" content="#1C1C1C" />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    {fontsCss
-      ? <style set:html={fontsCss}></style>
-      : <link rel="stylesheet" href={FONTS_URL} />}
   </head>
   <body>
     <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -62,6 +48,7 @@ try {
           <a href="https://ko-fi.com/gabrielmaglia">Ko‑fi</a>
         </nav>
         <p class="tm">Rekordbox: marca de AlphaTheta Corporation. Traktor, Native Instruments: marcas de Native Instruments GmbH. Sin afiliación.</p>
+        <p class="tm">Tipografías bajo SIL Open Font License (<a href={`${base}/fonts/LICENSES.txt`}>licencias</a>).</p>
       </div>
     </footer>
   </body>
