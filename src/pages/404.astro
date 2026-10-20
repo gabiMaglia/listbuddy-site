@@ -2,7 +2,7 @@
 import Legal from "../layouts/Legal.astro";
 const home = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/`;
 ---
-<Legal title="No encontrado">
+<Legal title="No encontrado" heading={false}>
   <h1>404</h1>
   <p>Esta página no existe. <a href={home}>Volver al inicio</a>.</p>
 </Legal>
