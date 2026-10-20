@@ -97,10 +97,8 @@ const faq = [
       {ASSETS.map((a) => (
         <a class="dl" href={assetUrl(a.file)}>
           <strong>{a.label}</strong>
-          <span class="meta">{a.file}</span>
-          <span class="meta">{a.size}</span>
-          <span class="meta">{a.req}</span>
           <span class="go">{a.kind} ↓</span>
+          <span class="metas"><span class="meta">{a.file}</span><span class="meta">{a.size}</span><span class="meta">{a.req}</span></span>
         </a>
       ))}
       <div class="dl-note">
