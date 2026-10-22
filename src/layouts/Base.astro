@@ -3,7 +3,7 @@ import "../styles/global.css";
 import { RELEASE } from "../release.mjs";
 
 interface Props { title?: string; description?: string }
-const { title, description = "Tu librería de Rekordbox y la de Traktor en una sola vista. Marcás playlists y salen al USB como carpetas numeradas, en el orden en que las armaste." } = Astro.props;
+const { title, description = "Tu librería de Rekordbox o la de Traktor en una sola app. Marcás playlists y salen al USB, una carpeta por playlist, con las pistas numeradas en el orden en que las armaste." } = Astro.props;
 const fullTitle = title ? `${title} · List Buddy` : "List Buddy · Todas tus playlists. Un solo lugar.";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const home = `${base}/`;

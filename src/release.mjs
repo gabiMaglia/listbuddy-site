@@ -16,7 +16,7 @@ export const fmtMB = (bytes) => `${(bytes / 1e6).toFixed(1).replace(".", ",")} M
 const RAW = [
   { label: "macOS · Apple Silicon", file: `ListBuddy-${RELEASE}-arm64.dmg`, bytes: 54801370, req: "14.4+", kind: "DMG" },
   { label: "macOS · Intel", file: `ListBuddy-${RELEASE}-x86_64.dmg`, bytes: 59722296, req: "14.4+", kind: "DMG" },
-  { label: "Windows · 64 bits", file: `listBuddy-${RELEASE}-win64.zip`, bytes: 68444116, req: "sin firma", kind: "ZIP" },
+  { label: "Windows · 64 bits", file: `listBuddy-${RELEASE}-win64.zip`, bytes: 68444116, req: "Win 10/11", kind: "ZIP" },
   { label: "Código fuente", file: `listbuddy-${RELEASE}-src.tar.gz`, bytes: 1790519, req: "GPL‑3.0", kind: "TAR" },
 ];
 

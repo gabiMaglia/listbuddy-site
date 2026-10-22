@@ -9,22 +9,22 @@ const win = ASSETS.find((a) => a.file.endsWith("win64.zip"))!;
 const steps = [
   { n: "01", t: "Exportar colección", d: "Rekordbox: Archivo → Exportar colección en xml. Traktor: ruta a collection.nml. No hace falta cerrar el programa." },
   { n: "02", t: "Seleccionar · previa", d: "Árbol de carpetas y playlists. Vista previa de la salida, reproducción, detección de enlaces rotos." },
-  { n: "03", t: "Copiar", d: "Destino: USB, SD o disco. Carpetas numeradas, progreso, registro de copiadas y faltantes." },
+  { n: "03", t: "Copiar", d: "Destino: USB, SD o disco. Una carpeta por playlist, pistas numeradas, progreso y registro de copiadas y faltantes." },
 ];
 
 const modules = [
   { id: "LB-01 EXPORT", t: "Copia con prefijo numérico", d: "Bit a bit, sin re-encode. Nombre limpio de caracteres inválidos. Progreso y registro por lote. Comprobación de tamaño al final." },
   { id: "LB-02 PREVIEW", t: "Vista previa y reproducción", d: "Lo que va a salir, playlist por playlist, antes de copiar. Reproductor con forma de onda y búsqueda. La interfaz sigue respondiendo mientras carga la librería y revisa archivos." },
-  { id: "LB-03 RELOCATE", t: "Reparación de enlaces", d: "Archivos movidos de disco: búsqueda por nombre, propuesta de ruta nueva. Rekordbox: las reparaciones se guardan aparte y se puede generar un XML importable. Traktor: escribe el NML con copia de seguridad previa." },
+  { id: "LB-03 RELOCATE", t: "Reparación de enlaces", d: "Archivos movidos de disco: búsqueda por nombre, propuesta de ruta nueva. Rekordbox: las reparaciones se guardan aparte y se puede generar un XML importable. Traktor: escribe el NML con copia de seguridad previa, con Traktor cerrado." },
   { id: "LB-04 INTEGRITY", t: "Integridad del software", d: "macOS: firmado con Developer ID y notarizado por Apple. Windows: sin firma, hash SHA‑256 publicado. Dependencias fijadas con hashes. Código fuente de cada versión junto a la descarga." },
-  { id: "LB-05 PRIVACY", t: "Sin red", d: "No recolecta ni envía datos. La única conexión es el chequeo de versión nueva al iniciar (consulta GitHub), desactivable en Configuración → Privacidad." },
+  { id: "LB-05 PRIVACY", t: "Privacidad", d: "No recolecta ni envía datos. No necesita cuenta ni nube. La única conexión es el chequeo de versión nueva al iniciar (consulta GitHub), desactivable en Configuración → Privacidad." },
 ];
 
 const faq = [
-  { q: "¿Hay que cerrar Rekordbox?", a: "No. Se lee el XML exportado. Para escribir el NML de Traktor (reparación de enlaces) sí conviene cerrarlo." },
+  { q: "¿Hay que cerrar Rekordbox?", a: "No. Se lee el XML exportado. Traktor sí tiene que estar cerrado para reparar enlaces, porque se escribe su collection.nml." },
   { q: "¿Modifica la base de datos?", a: "Nunca abre ni escribe master.db. Las reparaciones de Rekordbox van a un archivo propio; se puede generar un XML nuevo para importar." },
   { q: "¿Convierte o normaliza el audio?", a: "No. Copia el archivo original byte a byte; solo cambia el nombre del archivo de destino." },
-  { q: "¿Qué cambia en la 1.1?", a: "A partir de la 1.1 List Buddy se distribuye con licencia de pago. La 1.0 queda disponible bajo GPL‑3.0, sin garantía de actualizaciones." },
+  { q: "¿Qué cambia en la 1.1?", a: "A partir de la 1.1 List Buddy se distribuye con licencia de pago. La 1.0 queda disponible bajo GPL‑3.0, sin actualizaciones ni soporte garantizados." },
 ];
 ---
 <Base>
@@ -34,11 +34,11 @@ const faq = [
         <p class="eyebrow">LB-1.0 · Utilidad de exportación · macOS / Windows</p>
         <h1>Todas tus playlists.<br />Un solo lugar.</h1>
         <p class="led">Rekordbox · Traktor · USB</p>
-        <p class="lede">Tu librería de Rekordbox y la de Traktor en una sola vista. Marcás playlists, escuchás, y salen al USB como carpetas numeradas, en el orden en que las armaste. No convierte, no toca la base de datos, no necesita cuenta ni nube.</p>
+        <p class="lede">Tu librería de Rekordbox o la de Traktor en una sola app. Marcás playlists, escuchás, y salen al USB, una carpeta por playlist, con las pistas numeradas en el orden en que las armaste. No convierte, no toca la base de datos, no necesita cuenta ni nube.</p>
         <dl class="spec">
           <dt>Entrada</dt><dd>Rekordbox 6 / 7 · XML exportado — Traktor Pro 3 / 4 · collection.nml</dd>
           <dt>Salida</dt><dd>una carpeta por playlist · <b>001 - Artista - Título.ext</b> · copia bit a bit</dd>
-          <dt>Audio</dt><dd>previa con forma de onda · mp3 aiff wav flac m4a</dd>
+          <dt>Audio</dt><dd>previa con forma de onda · mp3 aiff wav flac m4a ogg, entre otros</dd>
           <dt>Red</dt><dd>solo el aviso de versión nueva al iniciar, desactivable</dd>
           <dt>Licencia</dt><dd>1.0 GPL‑3.0, gratis · 1.1 en adelante con licencia de pago</dd>
         </dl>
@@ -47,7 +47,7 @@ const faq = [
           <a class="btn2" href={assetUrl(win.file)}>Descargar · Windows</a>
         </div>
       </div>
-      <Figure variant="hero" file="fig-01.jpg" width={1200} height={1600} kind="Fig. 01 · Foto" desc="Macro de un pendrive entrando en el puerto USB de una reproductora, luz dura, fondo negro. Blanco y negro o color apagado. Sin logos legibles." />
+      <Figure variant="hero" file="fig-01.jpg" width={1200} height={1600} kind="Fig. 01 · Foto" desc="Un pendrive y una reproductora. Lo que exporta List Buddy entra directo al puerto." />
     </div>
   </section>
 
@@ -59,19 +59,19 @@ const faq = [
     </div>
   </Section>
 
-  <Section num="02" title="Salida" alt note="Lo que queda en el volumen después de exportar tres playlists. Nombres de ejemplo.">
+  <Section num="02" title="Salida" alt note="Lo que queda en el volumen después de exportar tres playlists: una carpeta por playlist, con su nombre. Pistas de ejemplo.">
     <div class="tree">
       <div class="tree-g">
         <span class="m">/Volumes/USB_DJ</span><span></span><span class="m">tamaño</span>
-        <span class="t">01_Warm_Up/</span><span></span><span>42 · 612 MB</span>
+        <span class="t">Warm Up/</span><span></span><span>42 · 612 MB</span>
         <span></span><span>001 - Jayda G - Both Of Us.mp3</span><span>14,1 MB</span>
         <span></span><span>002 - Kerri Chandler - Rain.aiff</span><span>81,6 MB</span>
         <span></span><span>003 - Moodymann - Shades Of Jae.flac</span><span>42,0 MB</span>
         <span></span><span class="m">… 039 más</span><span></span>
-        <span class="t">02_Peak/</span><span></span><span>58 · 1,1 GB</span>
+        <span class="t">Peak/</span><span></span><span>58 · 1,1 GB</span>
         <span></span><span>001 - Floating Points - Vocoder.aiff</span><span>64,2 MB</span>
         <span></span><span class="m">… 057 más</span><span></span>
-        <span class="t">03_Closing/</span><span></span><span>31 · 498 MB</span>
+        <span class="t">Closing/</span><span></span><span>31 · 498 MB</span>
         <span></span><span>001 - Larry Heard - Missing You.mp3</span><span>15,3 MB</span>
         <span></span><span class="m">… 030 más</span><span></span>
         <span class="ok">OK</span><span class="mt">131 copiadas · 0 faltantes · tamaños comprobados</span><span class="mt">2,2 GB</span>
@@ -87,7 +87,7 @@ const faq = [
     </div>
   </Section>
 
-  <Section num="04" title="Interfaz" alt note="Captura real de la 1.0 en macOS, tema oscuro. Una sola, sin marco de dispositivo.">
+  <Section num="04" title="Interfaz" alt note="La 1.0 en macOS, tema oscuro, con una librería de ejemplo.">
     <Figure variant="ui" file="fig-02.png" width={1600} height={1000} kind="Fig. 02 · Captura" desc="List Buddy 1.0 en macOS, tema oscuro: árbol de playlists a la izquierda, vista previa de la salida con enlaces rotos marcados, y el reproductor con forma de onda, destino y botón Exportar abajo." />
   </Section>
 
