@@ -1,6 +1,6 @@
 # listbuddy-site
 
-Landing de [List Buddy](https://github.com/gabiMaglia/listbuddy) (dirección «V4 · Ficha técnica»). Astro estático, CSS propio en `src/styles/global.css`, sin JS de cliente (solo `<details>` nativo). Publicada en https://gabimaglia.github.io/listbuddy-site/
+Landing de [List Buddy](https://github.com/gabiMaglia/listbuddy) (dirección «V4 · Ficha técnica»). Astro estático, CSS propio en `src/styles/global.css`, sin JS de cliente (solo `<details>` nativo). URL canónica: https://www.gabrielmaglia.me/apps/listbuddy/ (el portfolio hace un rewrite server-side a GH Pages; `gabimaglia.github.io/listbuddy-site/` redirige ahí).
 
 Código del sitio MIT; contenido © Gabriel Maglia.
 
@@ -10,10 +10,10 @@ Requiere Node >= 22.12 (`.nvmrc`).
 
 ```bash
 npm install
-npm run dev            # http://localhost:4321/listbuddy-site/
+npm run dev            # http://localhost:4321/apps/listbuddy/
 npm run build          # dist/
 npm run check          # astro check (TypeScript)
-npm test               # hash de los textos legales vs. remoto
+npm test               # hash legales vs. remoto + canonical/base/redirección sobre el build
 npm run check-links    # HEAD a los assets del Release
 ```
 
@@ -46,7 +46,9 @@ Si cambian las proporciones, ajustar `width`/`height` en `src/pages/index.astro`
 
 `.github/workflows/deploy.yml` (`withastro/action` + `actions/deploy-pages`) en cada push a `main`. Pages debe estar en «Source: GitHub Actions».
 
-`astro.config.mjs` usa `site: 'https://gabimaglia.github.io'` y `base: '/listbuddy-site'` porque Pages de proyecto sirve bajo el nombre del repo. **Al apuntar un dominio propio** se borra `base` y se cambia `site` por el dominio (y se agrega `public/CNAME`).
+`astro.config.mjs` usa `site: 'https://www.gabrielmaglia.me'` y `base: '/apps/listbuddy'`: canonical y rutas internas (favicon, fuentes, imágenes, nav, legales) salen con esa base. Los archivos se siguen publicando en `gabimaglia.github.io/listbuddy-site/` (el layout de `dist/` no depende de `base`); el portfolio los sirve con un rewrite `/apps/listbuddy/:path*` → `https://gabimaglia.github.io/listbuddy-site/:path*`.
+
+**Redirección:** un script inline en `<head>` (`Base.astro`, `data-gh-redirect`) manda a `https://www.gabrielmaglia.me/apps/listbuddy/…` (conservando path, search y hash) solo si `location.hostname` termina en `github.io`. Proxyada desde gabrielmaglia.me no se dispara, así que no hay loop. `tests/canonical.test.mjs` falla si el build vuelve a referenciar `/listbuddy-site` o si el canonical no apunta a gabrielmaglia.me. No hay sitemap generado (sin integración).
 
 ## Decisiones
 
