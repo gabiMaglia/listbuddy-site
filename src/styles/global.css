@@ -230,6 +230,7 @@ h1 {
 .fig-hero img { width: 100%; height: auto; flex: 1; object-fit: cover; min-height: 0; display: block; }
 .fig-hero .ph { flex: 1; background: #2a2a2a; min-height: 240px; }
 figcaption { padding: 16px; display: flex; flex-direction: column; gap: 4px; width: 100%; border-top: 1px solid var(--rule); background: var(--bg-fig); }
+.fig-band { flex: none; min-height: 72px; width: 100%; border-top: 1px solid var(--rule); background: var(--bg-fig); }
 .fig-ui { margin: 0; padding: 20px 0 28px; }
 .fig-ui .frame { border: 1px solid var(--rule); background: var(--bg-fig); }
 .fig-ui .frame img { display: block; width: 100%; height: auto; }
@@ -351,6 +352,7 @@ main { flex: 1; min-width: 0; }
   .lede { font-size: 18px; }
   .fig-hero { margin: 0; border-top: 0; border-left: 1px solid var(--rule); min-height: 560px; }
   .fig-hero figcaption { padding: 20px 24px; }
+  .fig-hero .fig-band { min-height: 88px; }
   .mod:hover, .dl:hover { background: var(--bg-hover); }
   .dl { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) auto; gap: 16px; }
   footer .wrap { padding-top: 22px; }
